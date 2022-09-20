@@ -1,0 +1,59 @@
+
+\section{Technical Debt}
+%inizia dicendo che causano problemi alla qualità, parli di technical debt e alcuni lavori che incitano l'importanza di technical debt, 
+Come è fondamentale effettuare analisi e monitorare la qualità del proprio prodotto, è altrettanto fondamentale percepire e identificare problematiche che possano danneggiare la qualità.
+%%forse una frase che connette ci vuole
+Molte industrie e diversi professionisti del software, al fine di poter andare incontro al \textit{time-to-market} (\ie l'ammontare di tempo richiesto per cui un prodotto, a partire dalla concezione dell'idea, raggiunge la fase di distribuzione nel mercato) e altri fattori di business, si ritrovano ad affrontare quello che viene definito come \textit{technical debt}.
+La prima definizione di Technical Debt è stata coniata da Ward Cunningham \cite{Cunningham1992td}, dove viene definito come un insieme di scelte di design subottimali o soluzioni implementative che possono influenzare negativamente i dati e la qualità del codice.
+Questa iniziale definizione porta al collegamento metaforico del debito finanziario, dove un professionista del software che sceglie di adoperare scelte di design non ottimali può essere associato a una persona che incorre in un debito di pagamento. Quando una persona non salda in tempi regolari e ammissibili il debito assegnato riscontra una forma di interesse. Questa forma di interesse continua a crescere in maniera proporzionale al tempo necessario per poter saldare il debito definito.
+Allo stesso modo, quando uno sviluppatore decide di non ripagare il debito creato all'interno del sistema (\ie migliorare la soluzione subottimale introdotta), l'interesse si accumula e l'ammontare del technical debt aumenta. Quindi il costo di mitigazione del technical debt del sistema cresce in modo proporzionale al tempo che intercorre tra l'introduzione del technical debt e la sua mitigazione.
+In casi estremi, l'interesse viene accumulato a tal punto da essere impossibile da mitigare, causando danni ingenti al sistema e l'abbandono del prodotto.
+Questa particolare casistica viene definita come \textit{technical bankruptcy}. \cite{refactoringSmellSuryanarayana}
+
+La metafora finanziaria del technical debt inoltre ha portato all'adozione della sua terminologia dalla parte dei professionisti di ingegneria del software.
+Ampatzoglou et al. \cite{AMPATZOGLOU201552} hanno analizzato la terminologia maggiormente utilizzata per la rappresentazione e l'analisi del Technical Debt nei sistemi e in particolare hanno estratto le definizioni di technical debt \textit{principal} e \textit{interest}:
+\begin{itemize}
+    \item \textbf{Principal}: ha lo scopo di valutare l'effort richiesto per indirizzare il sistema attuale in un sistema che abbia un livello ottimale di qualità di progettazione. 
+    \item \textbf{Interest}: ha lo scopo di valutare l'effort addizionale necessario per applicare tecniche di manutenzione e recuperare la qualità del software.
+\end{itemize}
+%aggiungi qualcosa per chiudere il discorso perchè sono importanti queste metriche?
+
+
+
+
+Esistono diverse tipologie di technical debt, il quale ognuno è relativo a una specifica granularità del sistema:
+\begin{itemize}
+    \item \textbf{Code Debt}: conseguenza dell'introduzione di scelte implementative subottimali, come violazioni rilevate da un tool di analisi statica, o uno stile del codice inconsistente.
+    \item \textbf{Design Debt}: conseguenza dell'introduzione di design smells e violazione di regole di progettazione.
+    \item \textbf{Test Debt}: conseguenza della mancanza gestione delle operazioni di testing o dalla inadeguatezza del raggiungimento dei criteri di testing.
+    \item \textbf{Documentation Debt}: conseguenza della mancanza di documentazione o di una scarsa definizione dei dettagli del sistema.
+\end{itemize}
+
+In questo lavoro di tesi saranno discusse le istanze di technical debt inerenti all'investigazione effettuata.
+Nella prossima sezione quindi sono introdotte le istanze di Technical debt relative al codice del sistema.
+\subsection{Code Debt}
+\label{sec:code_debt}
+L'implementazione del codice sorgente prevede molte decisioni riguardanti lo stile e il design della soluzione. Il codice sorgente può essere soggetto a revisione, ispezione e analisi statica per rilevare i problemi di piccola granularità. Tipici esempi di problemi di implementazione del codice sono la violazioni di standard del codice, una errata nomenclatura, codice duplicato e fuorvianti o incorretti commenti del codice.
+Molti di questi sintomi sono definiti come \textit{code smells}. Quando il sistema incorre in technical debt con una granularità al livello del codice, il debito tende a diminuire attributi di qualità come la maintainability a tal punto da rendere difficile di fare le correzioni al sistema quando ne ha bisogno.
+I code smell sono definiti come scelte implementative di bassa qualità che possono nascondere problemi più gravi alla qualità del sistema \cite{FowlerCodeSmell}.
+Ogni code smell può influenzare diversi aspetti di qualità del codice e possono avere una diversa severità al variare dei possibili danni che possono causare al sistema.
+Di seguito saranno elencati e illustrati i code smell più identificati nei sistemi software presenti nello stato della pratica, come riportati da uno studio sulla percezione della presenza e la frequenza dei professionisti del software condotto da Palomba et al \cite{PalombaCodeSmells}.
+\subsubsection{God Class}
+Un'istanza di \textit{God Class} rappresenta una classe che risponde all'esigenza di multiple responsabilità e contiene quindi un numero alto di funzionalità.
+Le problematiche di questa classe non sono causate direttamente dalla sua dimensione, ma da fattori che vanno implicitamente a incidere sulla manutenibilità del software. In particolare, quando viene identificata una istanza di questo genere all'interno del proprio sistema, i seguenti attributi di qualità del sistema hanno gravi conseguenze:
+\begin{itemize}
+    \item \textbf{Coesione}: Grado di correlazione tra le responsabilità e le funzionalità a cui la classe fornisce soluzione. Se la classe ha un'alta coesione, allora le funzionalità all'interno di essa convergono a fornire una soluzione alla stessa responsabilità. Nel caso in cui viene identificata una \textit{God Class}, questa metrica di qualità tende a decrementare data la tua propensione a includere diverse responsabilità.
+    \item \textbf{Accoppiamento}: Grado di misurazione della dipendenza della attuale classe con altre componenti del sistema. Se la classe ha un alto accoppiamento, allora la classe presenta un alto numero di dipendenze. Questo comporta alla riduzione di attributi di qualità come la modificabilità del software (appartenente alla caratteristica di manutenibilità del codice), dove ogni attività di manutenzione del software che include questa componente, comporta ad avere un alto impatto su altre componenti.
+\end{itemize}
+
+
+\subsubsection{Complex Class}
+Un'istanza di \textit{Complex Class} rappresenta una classe che contiene metodi che riportano un'alta complessità. Anche se, apparentemente un istanza di \textit{God Class} e un istanza di \textit{Complex Class} possono essere simili, diversi sono gli effetti e i danni in termini di qualità che causano al sistema. In questo caso, quando viene identificata una istanza di questo genere, le gravi conseguenze sono riscontrate in termini di complessità del codice.
+In particolare, analizzando le metriche di complessità maggiormente utilizzate, è possibile riscontrare i danni che può causare l'introduzione di una \textit{Complex class}.
+\begin{itemize}
+    \item \textbf{Cyclomatic Complexity}: Metrica del software utilizzata per indicare la complessità di un programma. È una misura quantitativa ricavata dal numero dei cammini linearmente indipendenti che attraversa il codice sorgente del programma \cite{mccabe1976}. La complessità di ogni metodo presente all'interno di una \textit{Complex Class} incide su questa metrica aumentando vertiginosamente il suo valore, la quale incide su attributi di qualità come la manutenibilità e la comprensibilità del software.
+\end{itemize}
+
+\subsubsection{Long Method}
+Allo stesso modo in cui una \textit{God Class} tende a centralizzare le responsabilità di un sistema, un'istanza di \textit{Long Method} rappresenta un metodo che contiene diverse responsabilità di una classe, incrementando la difficoltà di manutenzione e di comprensibilità. Per poter analizzare una istanza di questo genere, è necessario fare affidamento anche in questo caso alla misurazione di attributi di qualità come coesione e accoppiamento.
+

@@ -1,0 +1,225 @@
+\documentclass[a4paper,12pt,oneside,top=6cm,bottom=3cm,left=3.5cm,right=3.5cm,openright,reqno,table]{book}
+\usepackage[english, italian]{babel} 
+\usepackage{microtype}
+\usepackage[utf8]{inputenc}
+\usepackage{subfigure}
+\usepackage{epsfig}
+\usepackage{amsmath, amssymb}
+\usepackage[linesnumbered,lined,commentsnumbered,italiano]{algorithm2e}
+\usepackage{fancybox}
+\usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
+\setlength{\marginparwidth} {2cm}
+\renewcommand{\baselinestretch}{1.3} 
+\usepackage{todonotes}
+\usepackage{moreverb}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[labelfont=it,textfont={it}]{caption}
+\usepackage[final,bookmarks,breaklinks,colorlinks,allcolors=black]{hyperref}
+\usepackage{soul,color}
+\usepackage[block=ragged,backend=biber,natbib=true,style=ieee]{biblatex} % Use the bibtex backend with the author year citation style (which resembles APA)
+
+\addbibresource{bibliography.bib} % The filename of the bibliography
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+\newcommand{\wip}[1]{\todo[inline,color=yellow!20!white]{\textbf{WIP:} #1}}
+\newcommand{\done}[1]{\todo[inline,color=green!20!white]{\textbf{Done:} #1}}
+\newcommand{\todoi}[1]{\todo[inline]{\textbf{Todo:} #1}}
+
+\newcommand{\eg}{\textit{e}.\textit{g}., }
+
+\newcommand{\ie}{ \textit{i}.\textit{e}., }
+\definecolor{gibgray}{rgb}{0.898, 0.898, 0.898}
+
+\newenvironment{rqbox}{\par\begingroup
+	\setlength{\fboxsep}{5pt}\findlength
+	\setbox0=\vbox\bgroup\noindent
+	\hsize=0.95\linewidth
+	\begin{minipage}{0.95\linewidth}\normalsize}
+	{\end{minipage}\egroup
+	\textcolor{black}{\fboxsep1.5pt\fbox
+		{\fboxsep5pt\colorbox{gibgray}{\normalcolor\box0}}
+		}
+	% \endgroup\par\addvspace{6pt minus 3pt}\noindent
+	\endgroup\par\noindent
+	\normalcolor\ignorespacesafterend
+	}
+\let\Examplebox\examplebox
+\let\endExamplebox\endexamplebox
+
+
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\definecolor{codebackground}{rgb}{0.95, 0.95, 0.92}
+\definecolor{gray50}{gray}{.5}
+\definecolor{gray40}{gray}{.6}
+\definecolor{gray30}{gray}{.7}
+\definecolor{gray20}{gray}{.8}
+\definecolor{gray10}{gray}{.9}
+\definecolor{gray05}{gray}{.95}
+\definecolor{arsenic}{rgb}{0.23, 0.27, 0.29}
+\definecolor{arsenic}{rgb}{0.23, 0.27, 0.29}
+\lstset{ %
+	backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+	basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+	breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+	breaklines=true,                 % sets automatic line breaking
+	captionpos=b,                    % sets the caption-position to bottom
+	commentstyle=\color{mygreen},    % comment style
+	deletekeywords={...},            % if you want to delete keywords from the given language
+	escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+	extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+	frame=single,
+	keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\color{blue},       % keyword style
+	morekeywords={*,...},            % if you want to add more keywords to the set
+	numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+	numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+	rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+	showstringspaces=false,          % underline spaces within strings only
+	showtabs=false,                  % show tabs within strings adding particular underscores
+	stringstyle=\color{mymauve},     % string literal style
+	tabsize=2,	                   % sets default tabsize to 2 spaces
+	title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+%%%%%%%%%%%%%
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%
+%SUMMARY BOX
+
+\newcommand\rf[1]{\textcolor{black}{#1}}
+\RequirePackage{fontawesome}
+
+\newcommand{\keyfindingsrqa}[1]{ %
+	\vspace{5pt} %
+	\noindent\fcolorbox{arsenic}{gray10}{%
+		\parbox{0.97\linewidth}{% 
+			\textbf{\faKey\ Stato dell'arte} #1 %
+		}%
+	}%
+	\vspace{5pt} %
+}%
+\newcommand{\keyfindingsrqb}[1]{ %
+	\vspace{5pt} %
+	\noindent\fcolorbox{arsenic}{gray10}{%
+		\parbox{0.97\linewidth}{% 
+			\textbf{\faKey\ Percezione degli sviluppatori} #1 %
+		}%
+	}%
+	\vspace{5pt} %
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\selectlanguage{italian}
+\begin{titlepage}
+\begin{center}
+{\Large Universit\`a degli Studi di Salerno}\\[0.2truecm]
+{\large Dipartimento di Informatica}\\
+
+\hrulefill\\
+\vspace{0.5cm}
+\epsfig{file=Figure/unisa.pdf,width=4truecm}\\[0.2truecm]
+\vspace{0.5cm}
+{\Large Tesi di Laurea Magistrale in }\\[0.2truecm]
+{\Large Informatica}\\
+\vspace{3cm}
+{\huge Technical Debt in }\\[0.2truecm]
+{\huge Sistemi di Intelligenza Artificiale:}\break
+{\huge uno Studio Empirico sullo Stato dell'Arte e della Pratica}\\
+\vfill
+
+{\bf Relatore} \hfill {\bf Candidato}\ \ \\
+Prof. Fabio Palomba \hfill Gilberto Recupito\\
+    \hfill Matricola:0522500842
+
+\hrulefill 
+
+Anno Accademico 2021-2022
+
+\end{center}
+\end{titlepage}
+\pagenumbering{roman}
+\clearpage
+\vfill
+\hfill \textit{A mio padre e mio fratello.}
+\chapter*{Abstract}
+\input{abstract.tex}
+
+\vfill
+\tableofcontents
+
+\pagenumbering{arabic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduzione}
+% devono seguire solo il primo capitolo
+\input{introduzione.tex}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Background}
+\input{background.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Stato dell'Arte}
+\input{statoarte.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Metodologia}
+\input{design.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Analisi e Risultati}
+\input{analisi.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Conclusioni ed Implicazioni}
+\input{conclusioni.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography[title={Bibliografia}] 
+\newpage
+
+\appendix
+
+
+\section*{Lista delle Sorgenti} 
+\begin{itemize}
+\item[S01 -] Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., … Dennison, D. (2015). Hidden technical debt in machine learning systems. Advances in neural information processing systems, 28.
+
+\item[S02 -]Tang, Y., Khatchadourian, R., Bagherzadeh, M., Singh, R., Stewart, A., and Raja, A. (2021). An empirical study of refactorings and technical debt in Machine Learning systems. 2021 IEEE/ACM 43rd International Conference on Software Engineering (ICSE), 238–250. IEEE.
+
+\item[S03 -]Belani, H., Vukovic, M., and Car, Ž. (2019). Requirements Engineering Challenges in Building AI-Based Complex Systems. 2019 IEEE 27th International Requirements Engineering Conference Workshops (REW), 252–255. doi:10.1109/REW.2019.00051
+
+\item[S04 -]Foidl, H., Felderer, M., and Biffl, S. (2019). Technical Debt in Data-Intensive Software Systems. 2019 45th Euromicro Conference on Software Engineering and Advanced Applications (SEAA), 338–341.\\
+doi:10.1109/SEAA.2019.00058
+
+\item[S05 -]Alahdab, M., and Çalıklı, G. (2019). Empirical analysis of hidden technical debt patterns in machine learning software. International Conference on Product-Focused Software Process Improvement, 195–202. Springer.
+
+\item[S06 -]Liu, J., Huang, Q., Xia, X., Shihab, E., Lo, D., and Li, S. (2020). Is using deep learning frameworks free? characterizing technical debt in deep learning frameworks. Proceedings of the ACM/IEEE 42nd International Conference on Software Engineering: Software Engineering in Society, 1–10.
+
+\item[S07 -]Malakuti, S., Borrison, R., Kotriwala, A., Kloepper, B., Nordlund, E., and Ronnberg, K. (2021). An Integrated Platform for Multi-Model Digital Twins. 11th International Conference on the Internet of Things, 9–16.
+
+\item[S08 -]Bogner, J., Verdecchia, R., and Gerostathopoulos, I. (2021). Characterizing technical debt and antipatterns in ai-based systems: A systematic mapping study. 2021 IEEE/ACM International Conference on Technical Debt (TechDebt), 64–73. IEEE.
+
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

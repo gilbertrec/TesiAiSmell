@@ -1,0 +1,32 @@
+\section{Motivazioni e Obiettivi} %\label{1sec:scopo}
+L'emergere dell'intelligenza artificiale (AI) ha colpito in modo pervasivo le industrie software con la proliferazione di sistemi AI-based, integrando, quindi, le componenti AI nei sistemi software che operano nell'industria \cite{AnthesAI}.
+Costruire, operare ed effettuare manutenzione dei sistemi AI però è differente dalle tradizionali metodologie di sviluppo e manutenzione di sistemi software. Infatti, in questi ultimi, il comportamento è dettato dal flusso di controllo del programma mentre, nei sistemi AI-based, le decisioni sono dettate dai dati. Questo nuovo punto di vista fa affiorare l'esigenza di esplorare le metodologie e le pratiche di Software Engineering per sviluppare, manutenere ed evolvere i sistemi AI. Questo è ciò che la comunità di ricerca di Software Engineering ha nominato \textbf{\textit{Software Engineering for Artificial Intelligence}} (SE4AI).
+
+Le industrie devono affrontare molte sfide al fine di creare soluzioni AI a larga scala per il mercato. Fischer et al. \cite{fischer2020ai} hanno condotto uno studio per scoprire le maggiori sfide nello sviluppo di applicazioni AI.
+In particolar modo, tra le più grandi sfide che un professionista deve affrontare figurano il garantire la qualità dei dati e del software.
+La gestione della qualità, sia dei dati che dell'applicazione, è una procedura fondamentale per le applicazioni AI, in quanto una scarsa qualità può portare a gravi conseguenze.
+Si consideri, tra i numerosi incidenti che coinvolgono l'AI, il caso di Elaine Herzberg, morta a causa di un errore di un'autovettura autonoma di Uber.
+Il modello integrato nell'autovettura ha effettuato un errore di classificazione sul pedone che stava attraversando la strada, portando quindi l'autovettura a proseguire \cite{AiIncident}.
+E questo, purtroppo, non è l’unico caso di sistema AI che ha causato ingenti danni (sia a persone che economici) a causa di negligenza nel controllo di qualità del modello.
+È necessario quindi porre particolare attenzione agli aspetti di qualità dei sistemi AI e in particolare, ai problemi che possono causare un degrado della qualità.
+La definizione di tecniche di validazione abilitate a prevenire il crollo della qualità rappresenta una delle più grandi sfide nel campo SE4AI. In questo contesto sono cruciali l'identificazione, la diagnosi e la gestione del debito tecnico, noto come technical debt. Il technical debt (TD) viene definito come un insieme di scelte di design subottimali o soluzioni implementative che possono influenzare negativamente i dati e la qualità del codice \cite{Cunningham1992td}.
+%possono fornire alla comunità di data scientist e software engineer strumenti appropriati atti al controllo della qualità durante l'evoluzione dei sistemi AI 
+I sistemi di Machine Learning hanno una notevole predisposizione nell'essere affetti da technical debt, poiché sono esposti sia alle tradizionali tipologie di technical debt, sia a \textbf{\textit{Artificial Intelligence Technical Debt} (AITD)}.
+Questi ultimi rappresentano le tipologie di technical debt che pregiudicano la qualità dei sistemi AI-based, e risultano difficili da rilevare perché presentano diverse granularità, arrivando quindi a definire la rilevazione anche a livello di sistema. È fondamentale, quindi, rilevare e mitigare tempestivamente le problematiche derivanti dal TD, attraverso ciò che viene denominato \textit{technical debt management}. Sebbene sia urgente e necessario gestire il TD dei sistemi AI, allo stato attuale non esistono soluzioni sufficientemente efficaci a rilevare e mitigare queste criticità.
+
+L'obiettivo di questo lavoro di tesi è quello di fornire un contributo cospicuo sia al settore accademico sia al settore industriale per la identificazione delle minacce alla qualità del software AI.
+Il lavoro di tesi prevede quindi un'analisi preliminare sistematica della letteratura al fine di revisionare lo stato attuale dell'arte e ottenere un quadro generale sulle istanze che possono provocare AITD.
+Successivamente, questo lavoro si pone di contribuire alla definizione delle istanze di AITD, attraverso l'investigazione tramite survey su larga scala di esperti e professionisti che hanno esperienza nella realizzazione e la manutenzione di sistemi e la gestione di una pipeline AI.
+Infine le risposte sono analizzate al fine di ottenere per ogni specifico problema che può causare AITD la sua frequenza, la sua severità e il suo impatto, ed estrarre infine soluzioni volte all'identificazione, alla diagnosi e alla mitigazione di AITD e che, quindi, migliorino la qualità del software AI.
+
+\section{Risultati}
+I risultati hanno mostrato un'alta diffusione di diverse istanze di AI Technical Debt, dove le più diffuse sono relative ai dati, alla configurazione del sistema, al codice e all'architettura.
+Concentrando lo studio successivamente sulle ultime due tipologie, è stata riscontrata un'alta severità e un alto impatto secondo la percezione degli sviluppatori AI.
+Infine, i professionisti AI attualmente non dispongono dei mezzi necessari al fine di effettuare processi di identificazione e mitigazione delle minacce definite tramite tecniche automatizzate, ma conducono ispezioni e revisioni manuali.
+\section{Struttura della tesi}
+
+Il lavoro di tesi è organizzato nel modo seguente: nel capitolo due si forniscono i principi teorici su cui il lavoro è basato, al fine di facilitare la comprensione del contesto e gli l'importanza della gestione del Technical Debt nei sistemi AI. Nel terzo capitolo vengono illustrati i lavori presenti nello stato dell'arte che hanno contribuito alla definizione di una tassonomia preliminare. Nel quarto capitolo è introdotta la metodologia adoperata. Nella prima parte del capitolo è descritto il processo di revisione della letteratura sistematico e il processo di estrazione delle informazioni da essa.
+Nella seconda parte, invece, viene illustrata la metodologia utilizzata all'investigazione della percezione degli sviluppatori AI.
+In particolare, viene illustrato il processo di conduzione del questionario, della selezione dei partecipanti, e della progettazione dell'esperimento.
+Infine, nel quinto capitolo di questo lavoro sono presentati i risultati delle analisi condotte sulla frequenza, la severità e il loro impatto.
+Nel sesto capitolo sono fornite le conclusioni del lavoro svolto e delineati gli sviluppi futuri.

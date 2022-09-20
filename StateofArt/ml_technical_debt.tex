@@ -1,0 +1,107 @@
+
+
+\section{ML-Specific Technical Debt}
+I sistemi di Machine Learning hanno una caratteristica predisposizione nell'imbattersi in technical debt, poiché sono presenti ad affrontare sia i tradizionali technical debt di una applicazione, sia gli \textit{ML-Specific technical debt}.
+Questa tipologia di technical debt è difficile da rilevare poichè presentano diverse granularità, arrivando quindi a definire la rilevazione anche a livello di sistema.
+
+Sculley et al. \cite{sculley2015hidden} esplicitano il primo approccio alla definizione del \textit{ML-Specific technical debt} a livello di sistema, identificando diverse tipologie di debt che ricoprissero ogni passo della Machine Learning Pipeline:
+
+\begin{itemize}
+    \item \textbf{Data dependency debt:} Tipologia di technical debt relativa alla sezione di data management della machine learning pipeline, ovvero considerando le fasi di data ingestion, data collection e data preparation.
+    \item \textbf{Analysis debt:} Tipologia di technical debt relativa alla sezione di model management, considerando fasi di feature selection, model selection, model execution e model updating.
+    \item \textbf{Configuration debt}: Tipologia di technical debt relativa alla configurazione dei sistemi di machine learning.
+\end{itemize}
+
+\subsection{Data Dependency Debt}
+Considerando che la data preparation è il primo step per iniziare a costruire un modello di Machine learning, è necessario considerare che il data dependency debt richiede una particolare attenzione per il pericolo che può causare, poichè è possibile che il technical debt impiegato durante la data preparation possa influenzare tutte le successive fasi della machine learning pipeline.
+Si definisce quindi il \textit{Data Dependency Debt} quando i dati che si utilizzano all'interno del nostro modello provocano una catena di dipendenze che è difficile da manutenere.
+In questa particolare tipologia sono definite tre categorie:
+\subsubsection{Unstable Data Dependency}
+Il seguente data dependency debt è relativo ai dati o agli \textit{input signals} che sono instabili, ovvero che cambiano il loro comportamento nel tempo.
+Tipico esempio di \textit{Unstable Data Dependency} è quando i dati provengono da un altro modello oppure vengono analizzati tramite tecnica di Term Frequency/Inverse Document Frequency (tf/idf) \cite{datamining_rajaraman} il cui score di ogni documento cambia nel tempo.
+Questi casi rientrano nel principio \textit{CACE: Changing Anything Changes Everything}, ovvero ogni cambiamento, miglioramento o adattamento all'insieme di dati può portare a un qualsiasi effetto di cambiamento all'interno del modello data la dipendenza dei dati.
+
+
+\subsubsection{Underutilized Data Dependencies}
+Questa tipologia di data dependency debt è relativa alle \textit{feature} degli input o ai \textit{signal} che non portano a incrementi significativi delle performance del modello, avendo come effetto l'aumento dei dati senza significativi vantaggi e la possibilità di introdurre vulnerabilità all'interno del sistema.
+Possibili cause che comportano la presenza di \textit{Underutilized Data Dependencies} all'interno del sistema sono:
+\begin{itemize}
+
+\item \textbf{Legacy Features:} Si consideri una feature \textit{f} nell'insieme delle feature \textit{S} del modello. Se viene aggiunta una successiva feature \textit{f'} a \textit{S}, è possibile che \textit{f} possa essere ridondante e poco utilizzata dal modello, poichè \textit{f'} contiene la stessa informazione di \textit{f}.
+
+\item \textbf{Bundled Features:} Questa è la situazione in cui al momento dell'aggiunta delle features all'interno del modello, esse vengono valutate nell'insieme, senza considerare una possibile analisi di ogni singola feature. Questa situazione porta che alcune delle features aggiunte non sono causa di un miglioramento delle performance del modello, ma possono risultare in uno scarso guadagno di accuracy.
+
+\item \textbf{Epsilon Features:} Una comune situazione è quella di aggiungere una feature f all'insieme delle feature che permette di avere leggeri miglioramenti alle performance del modello al costo di aumentarne la complessità. 
+
+\item \textbf{Correlated Features:} Si considerino due feature \textit{f} e \textit{f'} inserite all'interno dell'insieme delle feature \textit{S} del modello. Se le due feature hanno un grado di correlazione alto, significa che entrambe le feature trasmettono la stessa informazione, dove solo una delle due è direttamente causale all'altra. I modelli di machine learning hanno problemi a identificare quale delle due feature è da prendere in considerazione.
+\end{itemize}
+
+\subsubsection{Correction Cascades}
+
+Questa situazione è ricorrente durante l'aggiornamento e il riutilizzo di un modello. Si consideri un modello \textit{a} per il problema \textit{A}. Questo modello viene riutilizzato per la costruzione di nuovo modello \textit{a'} corrispondente alla soluzione del problema \textit{A'}. Questa correzione, per quanto inizialmente possa apportare vantaggi e utilità alla risoluzione del problema, porta alla costruzione di un modello che dipende per intero da un altro modello. Questa situazione può rincorrere in continui peggioramenti se le correzioni avvengono in cascata, continuando quindi a generare dipendenze tra i modelli.
+
+\subsection{Analysis Debt}
+I sistemi di Machine Learning tendono a influenzare il loro stesso comportamento nel tempo. Questo aumenta la difficoltà di predirre il comportamento del sistema prima della sua esecuzione. 
+Il fenomeno dove un modello tende a influenzare il suo stesso comportamento durante l'aggiornamento del modello nel tempo viene definito come \textit{Feedback Loop}.
+I \textit{Feedback Loops} possono assumere diverse forme, le quali ognuna presenta un alto grado di difficoltà nella identificazione data dovuta dalla loro natura irregolarità della frequenza con cui i modelli si aggiornano.
+In particolare sono definite due tipologie di \textit{Feedback Loop}:
+
+\subsubsection{Direct Feedback Loop}
+Un modello può direttamente influenzare la selezione dell'ambiente da cui provengono i dati per il training. Se un modello ha un contatto interattivo con l'ambiente da cui percepisce i dati, il proprio output potrebbe essere causa della definizione dei dati. Questo comporta che i dati che il modello successivamente riceve in input per il training del modello in realtà sono dati influenzati.
+
+\subsubsection{Hidden Feedback Loop}
+Sebbene le istanze di \textit{Direct Feedback Loop} dispongono di interazioni con l'ambiente visibili e identificabili, diverso è per la presente categoria di Technical Debt.
+Un caso più particolare, ovvero la presenza di \textit{Hidden Feedback Loop} nel sistema, riguarda l'interazione indiretta tra due sistemi, i quali si influenzano indirettamente nell'ambiente.
+
+Si consideri un algoritmo di Machine Learning ($\mathbf{M}_{a}$) che ha lo scopo di predirre i luoghi in cui si presenteranno crimini e un altro modello ($\mathbf{M}_{b}$), il quale determina dove distribuire in modo ottimale gli agenti di polizia. 
+Il modello $\mathbf{M}_{b}$ distribuisce quindi più agenti di polizia nell'area identificata dal modello $\mathbf{M}_{a}$. Grazie all'incremento del numero di agenti, vengono scoperti più crimini. Il modello $\mathbf{M}_{b}$ riceve informazioni al modello $\mathbf{M}_{a}$, ma influenza anche l'ambiente di input su cui $\mathbf{M}_{a}$ opera per effettuare la predizione. Questa influenza indiretta tra i due modelli risulta in un ciclo continuo di aggiornamento automatico.
+Miglioramenti o modifiche a uno dei due modelli di AI porta come effetto un'alterazione del comportamento nell'altro risultando in un possibile degrado delle performance o, in casi peggiori, causando problematiche come l'overfitting.
+
+
+\subsection{System Level Antipattern}
+
+L'articolo proposto da Sculley et al. \cite{sculley2015hidden} definisce anche due particolari antipattern che sono presenti all'interno delle applicazioni di machine learning, a livello di sistema.
+
+
+\subsubsection{Glue Code}
+I professionisti che contribuiscono alla costruzione di sistemi di Machine Learning e, in particolare, gli esperti di data science tendono a definire soluzioni \textit{general purpose} come singoli \textit{package} indipendenti e autonomi. Quindi, al momento in cui si necessita utilizzare il package in un altro modello o sistema, si tende a inserire ingenti parti di codice che non sono necessarie allo scopo dell'applicazione, ma sono utili ad adattare queste componenti all'interno del sistema.
+Un'istanza di \textit{glue code} può portare a lungo termine a un incremento eccessivo dei costi di manutenzione. La continua aggiunta di componenti all'interno di un sistema ha come conseguenza il continuo aumento di risorse necessarie per la gestione dell'applicazione, fi no a giungere al blocco totale del sistema.
+Sculley et al. \cite{sculley2015hidden} hanno scoperto che nella comunità accademica solo il 5\% del codice delle applicazioni comprende codice relativo alle operazioni di machine learning, mentre il restante 95\% è rappresentativo di \textit{glue code}.
+
+
+\subsubsection{Pipeline Jungles}
+Questa tipologia di antipattern all'interno del sistema può evolvere ad ogni aggiunta di un dato o una nuova informazione all'interno del sistema.
+Questa nuova informazione può richiedere di aggiungere al processo standard definito dalla pipeline ulteriori operazioni per la elaborazione e la preparazione dei dati. Tali aggiunte continue comportano a un incremento della pipeline di machine learning, ritrovandosi in un problema che richiede alti costi di identificazione e di manutenzione.
+
+\subsection{Configuration Debt}
+Questa tipologia di technical debt è relativa alla configurazione di sistemi di machine learning.
+La gestione e la configurazione dei cambiamenti di un modello, come ad esempio la modifica o l'aggiunta di una \textit{feature}, possono creare situazioni in cui la configurazione diviene difficile da aggiornare.
+Tipici esempi che comportano al configuration debt sono:
+\begin{itemize}
+    \item Una \textit{feature} che, quando utilizzata, richiede per le attività di training il bisogno di utilizzare memoria aggiuntiva al fine di effettuare le operazioni di training del modello in modo efficiente.
+    \item Una \textit{feature} che non è più disponibile quindi deve essere sostituita da altre \textit{features} del modello.
+    \item Una \textit{feature} che preclude l'utilizzo di altre feature a causa della definizione di vincoli semantici.
+\end{itemize}
+
+Gli autori identificano tutte queste caratteristiche come sintomi di una configurazione difficile da modificare e che può causare svariate problematiche al sistema.
+Essi propongono quindi una serie di principi di buona pratica per validare il sistema di configurazione utilizzato.
+I principi esplicitati dagli autori sono i seguenti:
+
+\begin{itemize}
+\item Deve essere semplice specificare una determinata configurazione come un piccolo cambiamento della sua versione precedente.
+\item Deve essere difficile commettere errori manuali, omissioni o imprecisioni nella specifica.
+\item Deve essere facile visualizzare la differenza di configurazione tra due modelli,
+\item Devono essere facilmente verificabili e valutabili i parametri del modello, come il numero di \textit{feature} utilizzate e la chiusura transitiva delle dipendenze dei dati.
+\item Deve essere possibile identificare impostazioni ridondanti o inutilizzate.
+\item Tutte le configurazioni devono sottostare a un processo di \textit{code review} ed essere validate.
+\end{itemize}
+
+\subsection{Common Smells}
+
+Gli autori hanno anche definito una serie di istanze di smells:
+
+\begin{itemize}
+    \item Plain-Old-Data Type Smell: I dati sono trasformati in un tipo primitivo come \textit{float} o \textit{integer}. In questa situazione i dati perdono le informazioni relative alla natura del suo formato (detti anche metadati), come l'intervallo di valori ammissibili.
+    \item Multiple Language Smell: L'utilizzo di più linguaggi può essere apparentemente una soluzione ottimale che permette l'utilizzo di diverse librerie, ma comporta come effetto collaterale l'aumento dei costi di testing e di comprensibilità delle componenti. La severità di questa particolare istanza di smell aumenta in situazioni in cui la responsabilità della componente viene trasferita ad altri esperti.
+    \item Prototype Smell: L'utilizzo di prototipi può essere conveniente per la rappresentazione di idee, ma affidarsi a un ambiente prototipato può portare alla creazione di un sistema instabile e le attività di manutenzione possono conseguire in altissimi costi. 
+\end{itemize}

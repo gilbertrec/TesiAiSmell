@@ -1,0 +1,24 @@
+
+Questo lavoro di tesi ha effettuato un'esplorazione completa della definizione, le minaccie e le possibili soluzioni esistenti per la gestione, identificazione e mitigazione di istanze di Technical Debt che sono specifiche per i sistemi AI.
+Dall'analisi della letteratura si evince un'alta diffusione delle istanze relative ai dati, alla configurazione del sistema, al codice e all'architettura e in particolare la diffusione di istanze come \textit{Pipeline Jungles}, \textit{Unstable Data Dependencies} e \textit{Epsilon Features}.
+
+Successivamente, lo studio ha condotto un'analisi sulla percezione di 54 specialisti di sistemi AI con lo scopo di estrarre informazioni sulle possibili minacce che possono causare gli AI Technical Debt. In particolare, sono state analizzate la diffusione, la severità e l'impatto di 9 istanze di \textit{AI Technical Debt}, appartenenti alle tipologie di \textit{code debt} e \textit{architectural debt}.
+I risultati mostrano in generale una discreta diffusione delle istanze nei sistemi AI, ma un'alta severità e impatto. 
+In particolare, dal punto di vista degli sviluppatori si evince che le istanze di \textit{Pipeline Jungle},\textit{Undeclared Consumers} e \textit{Jumbled Model Architecture} sono considerate davvero pericolose per i sistemi AI, riscontrando un'alto indice di severità e conseguenzialmente un'alto sforzo necessario al fine di identificare e mitigare queste minacce.
+Inoltre, i risultati hanno dimostrato che la presenza di AI Technical Debt può influenzare decisivamente su tutti gli aspetti di qualità che sono stati proposti agli sviluppatori.
+Quindi, la presenza di un'istanza di AI Technical Debt ha un'influenza diretta sulle altre componenti del sistema, sulla sua comprensibilità, sulla sua evoluzione, sul suo accoppiamento e sullo sforzo di manutenzione del sistema e sulle performance del modello,
+Infine, solo una piccola parte degli sviluppatori utilizzano tecniche automatiche al fine di identificare e effettuare refactoring, applicabili inoltre solo per alcune istanze di AI Technical Debt.
+La più grande parte degli sviluppatori, invece, utilizza approcci di ispezione e revisione manuale, coinvolgendo più componenti al fine di aumentare l'affidabilità del processo.
+%%qui vanno le implicazioni
+I risultati di questo lavoro ha dato luce a diverse importanti informazioni.
+Lo stato attuale della ricerca non permette alla comunita accademica e scientifica di ottenere conoscenza della presenza di possibili minacce alla qualità del software AI. 
+I risultati preliminari definiti dall'analisi della letteratura dimostrano che non è ancora presente un numero sufficiente di articoli di ricerca utile a diffondere l'argomento di ricerca e incrementare il contributo scientifico.
+I risultati di questo lavoro di tesi, in particolare le informazioni estratte dalla percezione degli sviluppatori, sono un ulteriore incentivo a investire lo sforzo della ricerca in questo campo. 
+In particolare, le informazioni estratte da \textbf{RQ2.2} e \textbf{RQ2.3} sono importanti fonti utili a ridirezionare gli studi futuri, in quanto definiscono una base di selezione delle istanze di AI Technical Debt su cui approfondire e investire la ricerca al fine di identificare tecniche di identificazione e mitigazione per le industrie che operano nella produzione di sistemi AI.
+Inoltre, i risultati di questo lavoro fondano una base di definizioni utili a contribuire allo sviluppo della tassonomia di AI Technical Debt e, contemporaneamente, apre la strada a numerose sfide per i ricercatori.
+Un aspetto importante sul quale sarà necessario intervenire in futuro è investigare sulla diffusione e sulla severità di istanze appartenenti alla tipologia di \textit{data debt}.
+Le istanze di \textit{data debt} sono minacce alla qualità dei dati, e la loro introduzione all'interno dei sistemi AI possono non solo danneggiare componenti di gestione e preparazione dei dati, ma propagare il debito introdotto verso tutte le altri componenti del sistema.
+Inoltre, lo studio condotto ha collegato le informazioni utili fornite dallo stato dell'arte alla percezione degli specialisti AI. 
+Per poter avere una visione completa sui possibili danni che possono causare la presenza delle definite istanze, sarà necessario includere nelle analisi l'estrazione di informazioni e lo studio di progetti di sistemi di intelligenza artificiale.
+Questo ulteriore passo darà la possibilità di analizzare nella pratica l'effetto che causa l'introduzione di un particolare AI Technical Debt all'interno dei progetti sotto analisi.
+Infine, un aspetto fondamentale su cui investire gli sforzi sarà sicuramente sulla definizione di tecniche di identificazione e di refactoring automatiche, al fine di fornire supporto agli sviluppatori AI, i quali attualmente tentano di identificare e ripagare il debito introdotto attraverso la conduzione di ispezioni manuali e revisioni.
